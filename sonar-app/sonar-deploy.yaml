@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: sonar-app-deploy
+    labels:
+      app: sonar-app
+      type: sonar-app-deploy
+       
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+        app: sonar-app
+        type: sonar-pod
+  template: 
+    metadata: 
+         name: sonar-pod
+         labels: 
+           app: sonar-app
+           type: sonar-pod
+    spec:      
+       containers:
+         - name: sonarqube
+           image: sonarqube
+           ports:
+              - containerPort: 9000

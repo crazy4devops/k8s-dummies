@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: result-app-deploy
+    labels:
+        app: voting-app
+        type: result-app-deploy
+spec:
+  template:
+      metadata:
+        name: result-pod
+        labels:
+            type: result-pod
+            app: voting-app
+      spec: 
+        containers:
+          - name: result-app
+            image: vsiraparapu/result-app
+            ports:
+              - containerPort: 80
+  replicas: 1
+  selector:
+      matchLabels:
+          type: result-pod
+          app: voting-app

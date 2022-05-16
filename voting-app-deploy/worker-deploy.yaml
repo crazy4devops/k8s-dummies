@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: worker-app-deploy
+    labels:
+        app: voting-app
+        type: worker-app-deploy
+spec:
+  template:
+      metadata:
+        name: worker-pod
+        labels:
+            type: worker-pod
+            app: voting-app
+      spec: 
+        containers:
+          - name: workerapp
+            image: vsiraparapu/worker-app
+  replicas: 1
+  selector:
+      matchLabels:
+          type: worker-pod
+          app: voting-app

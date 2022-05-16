@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: postgres-app-deploy
+    labels:
+        app: voting-app
+        type: postgres-app-deploy
+spec:
+  template:
+      metadata:
+        name: postgres-pod
+        labels:
+            type: postgres-pod
+            app: voting-app
+      spec: 
+        containers:
+          - name: postgres
+            image: postgres
+            env:
+              - name: POSTGRES_USER
+                value: postgres
+              - name: POSTGRES_PASSWORD
+                value: postgres
+  replicas: 1
+  selector:
+      matchLabels:
+            type: postgres-pod
+            app: voting-app
